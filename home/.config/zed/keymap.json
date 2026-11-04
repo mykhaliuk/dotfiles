@@ -1,0 +1,99 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    /* ----- GLOBAL OVERRIDES ----- */
+    "bindings": {
+      "cmd-[": "pane::GoBack",
+      "cmd-]": "pane::GoForward",
+      "cmd-o": "file_finder::Toggle",
+      "cmd-alt-shift-o": "workspace::Open",
+      "shift shift": "command_palette::Toggle",
+      "cmd-backspace": "editor::DeleteLine",
+      "ctrl-s": "editor::SortLinesCaseInsensitive",
+      "ctrl-down": "editor::FindNextMatch",
+      "ctrl-up": "editor::FindPreviousMatch",
+      "cmd-e": "tab_switcher::ToggleAll"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-k h": "workspace::ActivatePaneLeft",
+      "cmd-k j": "workspace::ActivatePaneDown",
+      "cmd-k k": "workspace::ActivatePaneUp",
+      "cmd-k l": "workspace::ActivatePaneRight",
+
+      "cmd-k shift-h": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "left" }
+      ],
+      "cmd-k shift-j": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "down" }
+      ],
+      "cmd-k shift-k": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "up" }
+      ],
+      "cmd-k shift-l": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "right" }
+      ]
+    }
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "w": "vim::Subword",
+      //  Vim Sneak motion
+      "s": ["vim::PushSneak", {}],
+      "S": ["vim::PushSneakBackward", {}]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      "space g g": [
+        "task::Spawn",
+        { "task_name": "Lazy git", "reveal_target": "center" }
+      ],
+      "space g c": "git::Commit"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      "w": "vim::NextSubwordStart",
+      "b": "vim::PreviousSubwordStart",
+      "e": "vim::NextSubwordEnd",
+      "g e": "vim::PreviousSubwordEnd",
+      "space l": "editor::Format",
+      "space r": "editor::Rename",
+      "g N": "vim::MoveToPrevious",
+      "g n": "vim::MoveToNext"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-+": "editor::UnfoldAll",
+      "cmd-_": "editor::FoldAll"
+    }
+  },
+  {
+    "bindings": {
+      "cmd-k cmd-l": "pane::SplitAndMoveRight"
+    }
+  },
+  {
+    "bindings": {
+      "cmd-k cmd-o": "git::ViewFile"
+    }
+  }
+]

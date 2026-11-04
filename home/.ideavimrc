@@ -1,0 +1,99 @@
+""" To trace the event name (id)
+""" turn on "IdeaVim: Track Action IDs" action
+
+let mapleader=" "
+
+set number
+set relativenumber
+"allow <BS>/h/l/<Left>/<Right>/<Space>, ~ to cross line boundaries
+set whichwrap=b,h,l,s,<,>,[,],~
+
+" Use system register for yank
+set clipboard+=unnamed
+
+""" Plugins -------------------------------
+set matchit
+set ReplaceWithRegister
+set argtextobj
+set commentary
+""" set easymotion
+set exchange
+set highlightedyank
+""" set hlsearc
+set ignorecase
+set multiple-cursors
+set smartcase
+set surround
+set textobj-entire
+set textwidth=0
+set NERDTree
+""" set which-key
+
+""" Plugin settings -------------------------
+let b:match_words = '<:>,<tag>:</tag>'
+let g:argtextobj_pairs="(:),{:},<:>,[:]"
+let g:argumentobject_force_toplevel = 0
+let g:multi_cursor_select_all_word_key = '<C-z>'
+
+""" Common settings -------------------------
+set showmode
+set so=5
+set incsearch
+set nu
+" increase the timeoutlen (default: 1000), don't add space around the equal sign
+set timeoutlen=5000
+
+""" Idea specific settings ------------------
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+
+""" Mappings --------------------------------
+map <space><Esc> :nohlsearch<cr>
+
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+" nmap <C-z> <Plug>(NextWholeOccurrence)
+" xmap <C-z> <Plug>(NextWholeOccurrence)
+" nmap g<C-z> <Plug>NextOccurrence
+" xmap g<C-z> <Plug>NextOccurrence
+" xmap <C-z> <Plug>SkipOccurrence
+" xmap <C-z> <Plug>RemoveOccurrence
+
+""" UI
+map <leader>uh <Action>(ToggleInlayHintsGloballyAction)
+
+" ACTIONS
+" Find IDE actions by name or keymap pattern :actionlist [pattern] (:actionlist extract or <M-o>)
+" map <space>l :action ReformatCode<CR>
+map [x :action EditorSelectWord<CR>
+" map <leader>l :action ReformatCode \| action Javascript.Linters.EsLint.Fix<CR>
+map <leader>l :action ReformatWithPrettierAction \| action Javascript.Linters.EsLint.Fix<CR>
+map <space>o :action CloseAllEditorsButActive<CR>
+map <leader>qf <Action>(Javascript.Linters.EsLint.Fix)
+map <space>r :action RenameElement<CR>
+vmap <space>s :action EditorSortLines<CR>
+map \o :action OptimizeImports<CR>
+map \q :action CloseProject<cr>
+map \w :action SaveAll<CR>
+
+""" GIT """
+map <leader>ghr <Action>(Vcs.RollbackChangedLines)
+
+" GO TO
+nmap g. :action ShowIntentionActions<CR>
+nmap ]r :action GotoNextElementUnderCaretUsage<CR>
+nmap [r :action GotoPrevElementUnderCaretUsage<CR>
+nmap gI :action GotoImplementation<CR>
+nmap <space>p :action GotoSymbol<CR>
+nmap <space>a :action GotoAction<CR>
+nmap <space>f  :action FindInPath<CR>
+vmap <space>f  :action FindInPath<CR>
+nmap ]d :action GotoNextError<CR>
+nmap [d :action GotoPreviousError<CR>
+nmap ]c :action VcsShowNextChangeMarker<CR>
+nmap [c :action VcsShowPrevChangeMarker<CR>
+
+noremap ZZ :action SaveDocument<CR> :action CloseContent<CR>
+
+" Esc to Esc + reformat code
+" imap <Esc> <Esc> :action ReformatWithPrettierAction<CR>

@@ -1,0 +1,301 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "cli_default_open_behavior": "existing_window",
+  "outline_panel": {
+    "dock": "right"
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "diff_view_style": "split",
+  "agent_servers": {
+    "github-copilot-cli": {
+      "default_config_options": {
+        "model": "claude-haiku-4.5"
+      },
+      "type": "registry"
+    },
+    "claude-acp": {
+      "default_config_options": {
+        "model": "opus[1m]",
+        "mode": "bypassPermissions",
+        "effort": "xhigh"
+      },
+      "favorite_config_option_values": {
+        "mode": [
+          "auto",
+          "plan",
+          "acceptEdits"
+        ]
+      },
+      "type": "registry"
+    }
+  },
+  "debugger": {
+    "dock": "right",
+  },
+  "title_bar": {
+    "show_branch_status_icon": true
+  },
+  "auto_signature_help": true,
+  "use_smartcase_search": true,
+  "cursor_shape": "bar",
+  "close_on_file_delete": true,
+  "preview_tabs": {
+    "enable_keep_preview_on_code_navigation": true,
+  },
+  "agent_ui_font_size": 12.0,
+  "tab_bar": {
+    "show": true,
+  },
+  "git_panel": {
+    "group_by": "staging",
+    "tree_view": true,
+    "dock": "right",
+  },
+  "confirm_quit": true,
+  "agent": {
+    "tool_permissions": {
+      "default": "allow"
+    },
+    "favorite_models": [
+      {
+        "provider": "copilot_chat",
+        "model": "claude-sonnet-4.5",
+        "enable_thinking": false
+      },
+      {
+        "provider": "copilot_chat",
+        "model": "gpt-5.2",
+        "enable_thinking": false
+      },
+      {
+        "provider": "copilot_chat",
+        "model": "gpt-5.3-codex",
+        "enable_thinking": false
+      }
+    ],
+    "use_modifier_to_send": true,
+    "inline_assistant_model": {
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-thinking",
+    },
+    "play_sound_when_agent_done": "always",
+    "default_profile": "ask",
+    "dock": "left",
+    "default_model": {
+      "enable_thinking": false,
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4.5",
+    },
+  },
+  "edit_predictions": {
+    "provider": "copilot",
+    "disabled_globs": [],
+    "mode": "eager",
+  },
+  "icon_theme": {
+    "mode": "light",
+    "light": "Catppuccin Mocha",
+    "dark": "Zed (Default)",
+  },
+  "current_line_highlight": "gutter",
+  "scrollbar": {
+    "show": "auto",
+    "cursors": true,
+    "git_diff": true,
+    "search_results": true,
+    "selected_symbol": true,
+    "diagnostics": "all",
+    "axes": { "horizontal": false, "vertical": true },
+  },
+  "show_signature_help_after_edits": true,
+  "project_panel": {
+    "folder_indicator": "chevron",
+    "dock": "right",
+    "auto_reveal_entries": true,
+    "git_status": true,
+    "show_diagnostics": "all",
+    "indent_size": 17,
+    "auto_fold_dirs": true,
+  },
+
+  "telemetry": {
+    "metrics": true,
+  },
+
+  "languages": {
+    "Python": {
+      "formatter": "language_server",
+      "indent_guides": {
+        "coloring": "indent_aware",
+      },
+      "preferred_line_length": 150,
+      "tab_size": 2,
+    },
+    "TypeScript": {
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+      },
+    },
+    "TSX": {
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+      },
+    },
+    "JavaScript": {
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+      },
+    },
+    "JSON": {
+      "format_on_save": "off",
+    },
+    "GraphQL": {
+      "formatter": "language_server",
+    },
+    "YAML": {
+      "formatter": "language_server",
+    },
+    "Gherkin": {
+      "inlay_hints": {
+        "enabled": true,
+      },
+      "preferred_line_length": 100,
+      "language_servers": ["cucumber"],
+      "tab_size": 2,
+      "hard_tabs": false,
+      "remove_trailing_whitespace_on_save": true,
+    },
+  },
+
+  "lsp": {
+    "basedpyright": {},
+  },
+
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": true,
+      "show_commit_summary": false,
+      "delay_ms": 500,
+    },
+  },
+
+  "tabs": {
+    "close_position": "right",
+    "file_icons": true,
+    "git_status": true,
+    "activate_on_close": "history",
+    "show_close_button": "hover",
+  },
+  "show_edit_predictions": null,
+  "relative_line_numbers": "enabled",
+  "experimental.theme_overrides": {
+    // "editor.background": "#2E3440",
+    // "terminal.background": "#2E3440",
+    "vim.normal.foreground": "#0008",
+    "vim.normal.background": "#39bae6",
+    "vim.insert.foreground": "#0008",
+    "vim.insert.background": "#aad94c",
+    "vim.visual.foreground": "#0008",
+    "vim.visual.background": "#ff8f40",
+    "vim.replace.foreground": "#0008",
+    "vim.replace.background": "#ed8796",
+    "vim.visual_line.background": "#ffb454",
+    "vim.visual_line.foreground": "#0008",
+    "vim.visual_block.background": "#e6b673",
+    "vim.visual_block.foreground": "#0008",
+    "syntax": {
+      "comment": {
+        "font_style": "italic",
+      },
+      "comment.doc": {
+        "font_style": "italic",
+      },
+    },
+  },
+  // "buffer_font_family": "CartographCFNerdFontComplete Nerd Font",
+  "buffer_font_family": "CartographCFNerdFontComplete Nerd Font",
+  "buffer_font_fallbacks": ["FiraCode NF"],
+  "buffer_font_weight": 300,
+  "buffer_font_features": {
+    "liga": true,
+    "calt": true,
+    "clig": true,
+  },
+  "ui_font_size": 15,
+  "buffer_font_size": 12.0,
+  "terminal": {
+    // "buffer_font_family": "CartographCFNerdFontComplete Nerd Font",
+    // "font_fallbacks": ["FiraCode NF"],
+    // "font_size": 12,
+    "font_family": "CartographCFNerdFontComplete Nerd Font",
+    "font_size": 12.0,
+    "copy_on_select": true,
+    "font_weight": 300,
+    "font_features": {
+      "liga": true,
+      "calt": true,
+      "clig": true,
+    },
+  },
+  "vim_mode": true,
+  "vim": {
+    "default_mode": "normal",
+    "toggle_relative_line_numbers": false,
+    "use_smartcase_find": true,
+    "use_system_clipboard": "always",
+  },
+  "theme": {
+    "mode": "dark",
+    // "light": "Ayu Light",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
+  "context_servers": {
+    "chrome-devtools-mcp-zed": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "browser_url": null,
+        "ws_endpoint": null,
+        "ws_headers": null,
+        "auto_connect": null,
+        "channel": null,
+        "headless": null,
+        "isolated": null,
+        "user_data_dir": null,
+        "viewport": null,
+        "executable_path": null,
+        "chrome_arg": [],
+        "proxy_server": null,
+        "accept_insecure_certs": null,
+        "category_emulation": null,
+        "category_performance": null,
+        "category_network": null,
+        "log_file": null,
+        "extra_args": []
+      }
+    },
+    "mcp-server-context7": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "context7_api_key": ""
+      }
+    },
+    "mcp-server-github": {
+      "settings": {
+        "github_personal_access_token": "$GITHUB_TOKEN",
+      },
+    },
+  },
+}
