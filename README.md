@@ -23,12 +23,12 @@ The command installs Homebrew if it is missing, installs `mise`, and runs `make 
 
 ## Fresh Fedora
 
-This path is not verified yet. Nobody has run it from start to end on a real Fedora machine.
+Nobody has run this path from start to end on a real Fedora machine. Do not install `mise` from the `jdxcode/mise` COPR: its version is too old and does not know `--from`.
 
 ```sh
 sudo dnf install -y git
-sudo dnf copr enable -y jdxcode/mise
-sudo dnf install -y mise
+curl -fsSL https://mise.run | MISE_VERSION=v2026.10.25 sh
+export PATH="$HOME/.local/bin:$PATH"
 mise bootstrap --from https://github.com/mykhaliuk/dotfiles.git --from-dir ~/dotfiles --config-dir home/.config/mise --yes
 exec fish
 ```
@@ -40,7 +40,7 @@ mise run macbook-pro-13.3-setup
 mise run macbook-pro-13.3-doctor
 ```
 
-To keep one Wi-Fi connection on 5 GHz, add its name: `mise run macbook-pro-13.3-setup -- --wifi-5ghz <connection>`. Do not do this for a connection that has only 2.4 GHz.
+The home router needs two more changes: PMF off and the 5 GHz band only. Add the name of its connection: `mise run macbook-pro-13.3-setup -- --wifi-router <connection>`. Other connections keep their settings.
 
 ## Daily use
 

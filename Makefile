@@ -2,7 +2,7 @@
 
 UNAME := $(shell uname)
 BREW_PREFIX := /opt/homebrew
-export PATH := $(BREW_PREFIX)/bin:$(PATH)
+export PATH := $(BREW_PREFIX)/bin:$(HOME)/.local/bin:$(PATH)
 PORTABLE_RUBY := $(BREW_PREFIX)/Library/Homebrew/vendor/portable-ruby/current/bin
 
 install: mise
@@ -19,7 +19,7 @@ ifeq ($(UNAME),Darwin)
 	brew install mise
 else
 	sudo dnf install -y git
-	command -v mise >/dev/null 2>&1 || { sudo dnf copr enable -y jdxcode/mise && sudo dnf install -y mise; }
+	command -v mise >/dev/null 2>&1 || curl -fsSL https://mise.run | MISE_VERSION=v2026.10.25 sh
 endif
 
 apply:

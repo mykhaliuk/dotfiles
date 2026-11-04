@@ -13,7 +13,7 @@ script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 readonly script_dir
 
 check_only=false
-wifi_5ghz=''
+wifi_router=''
 todo_count=0
 reboot_needed=false
 current_step='start'
@@ -21,7 +21,7 @@ current_step='start'
 trap 'printf "fail  %s\n" "$current_step" >&2' ERR
 
 usage() {
-  echo "usage: $0 [--check] [--wifi-5ghz <connection>]"
+  echo "usage: $0 [--check] [--wifi-router <connection>]"
 }
 
 ok() {
@@ -158,34 +158,25 @@ FILES
   fi
 }
 
-check_wifi_connections() {
-  local uuid type key_mgmt pmf name
-  while IFS=: read -r uuid type; do
-    if [ "$type" != '802-11-wireless' ]; then
-      continue
-    fi
-    key_mgmt="$(nmcli -g 802-11-wireless-security.key-mgmt connection show "$uuid")"
-    if [ -z "$key_mgmt" ]; then
-      continue
-    fi
-    pmf="$(nmcli -g 802-11-wireless-security.pmf connection show "$uuid")"
-    name="$(nmcli -g connection.id connection show "$uuid")"
-    case "$pmf" in
-      1 | *disable*) ok "wifi: PMF is off on $name" ;;
-      *)
-        if needs_fix "wifi: PMF is on for $name"; then
-          sudo nmcli connection modify "$uuid" 802-11-wireless-security.pmf disable
-        fi
-        ;;
-    esac
-  done < <(nmcli -g UUID,TYPE connection show)
-
-  if [ -n "$wifi_5ghz" ]; then
-    if [ "$(nmcli -g 802-11-wireless.band connection show "$wifi_5ghz")" = 'a' ]; then
-      ok "wifi: $wifi_5ghz stays on 5 GHz"
-    elif needs_fix "wifi: $wifi_5ghz is not limited to 5 GHz"; then
-      sudo nmcli connection modify "$wifi_5ghz" 802-11-wireless.band a
-    fi
+check_wifi_connection() {
+  if [ -z "$wifi_router" ]; then
+    return
+  fi
+  local pmf band
+  pmf="$(nmcli -g 802-11-wireless-security.pmf connection show "$wifi_router")"
+  band="$(nmcli -g 802-11-wireless.band connection show "$wifi_router")"
+  case "$pmf" in
+    1 | *disable*) ok "wifi: PMF is off on $wifi_router" ;;
+    *)
+      if needs_fix "wifi: PMF is on for $wifi_router"; then
+        sudo nmcli connection modify "$wifi_router" 802-11-wireless-security.pmf disable
+      fi
+      ;;
+  esac
+  if [ "$band" = 'a' ]; then
+    ok "wifi: $wifi_router stays on 5 GHz"
+  elif needs_fix "wifi: $wifi_router is not limited to 5 GHz"; then
+    sudo nmcli connection modify "$wifi_router" 802-11-wireless.band a
   fi
 }
 
@@ -213,7 +204,7 @@ check_wifi() {
     return
   fi
   check_wifi_files "$(cat "/sys/class/net/$interface/address")"
-  check_wifi_connections
+  check_wifi_connection
   check_wifi_band
 }
 
@@ -280,8 +271,8 @@ main() {
   while [ "$#" -gt 0 ]; do
     case "$1" in
       --check) check_only=true ;;
-      --wifi-5ghz)
-        wifi_5ghz="${2:?--wifi-5ghz needs a connection name}"
+      --wifi-router)
+        wifi_router="${2:?--wifi-router needs a connection name}"
         shift
         ;;
       *)
