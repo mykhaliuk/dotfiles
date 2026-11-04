@@ -1,0 +1,69 @@
+[user]
+	name = Volodymyr Mykhaliouk
+	email = 18505201+mykhaliuk@users.noreply.github.com
+	username = mykhaliuk
+	signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKrbxhUFPmen90+3zovwzOZBfLoJw+ZPXRZUP5zopuID
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[hub]
+	protocol = https
+[core]
+	autocrlf = input
+	editor = zed --wait
+	diff = diff-so-fancy | less --tabs=4 -RFXS --pattern '^(Date|added|deleted|modified): '
+	pager = diff-so-fancy | less --tabs=4 -RF
+[rerere]
+	enabled = true
+[alias]
+	merge-commits = "!funct() { git log --merges --reverse --oneline --ancestry-path $1..origin | grep \"Merge pull request\";  }; funct"
+	pr-number = "!funct() { git merge-commits $1 | head -n1 | sed -n \"s/^.*Merge pull request #\\s*\\([0-9]*\\).*$/\\1/p\"; }; funct"
+	web-url = "!funct() { git config remote.origin.url | sed -e\"s/git@/https:\\/\\//\" -e\"s/\\.git$//\" | sed -E \"s/(\\/\\/[^:]*):/\\1\\//\"; }; funct"
+	pr = "!funct() { xdg-open \"`git web-url`/pull/`git pr-number $1 --`\" ;}; funct"
+	nb = "!funct() { git checkout -b $(tr \" []:\" _ <<< \"${@}\"); }; funct"
+	fd = fetch origin dev:dev
+	fm = fetch origin master:master
+[gpg]
+	format = ssh
+[gitbutler]
+	gitbutlerCommitter = 1
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[rebase]
+	autoStash = true
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[diff-so-fancy]
+	stripLeadingSymbols = false
+[credential "https://github.com"]
+	helper = 
+	helper = !$HOME/.local/share/mise/shims/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !$HOME/.local/share/mise/shims/gh auth git-credential
+[gpg "ssh"]
+	program = {% if os() == "macos" %}/Applications/1Password.app/Contents/MacOS/op-ssh-sign{% else %}/opt/1Password/op-ssh-sign{% endif %}
+	allowedSignersFile = ~/.config/git/allowed_signers
+[include]
+	path = ~/.config/git/local
