@@ -1,0 +1,12 @@
+[files]
+ignore-hidden = false
+extend-exclude = ["lazy-lock.json", ".git/"]
+
+[default.extend-words]
+# codepoint U+E1BA in config.ghostty
+BA = "BA"
+# less termcap name in man.fish
+ue = "ue"
+# personal fish aliases
+aslo = "aslo"
+tre = "tre"

@@ -1,0 +1,7 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "ghostty keybind lines are not secrets"
+regexTarget = "match"
+regexes = ['''^keybind =''']

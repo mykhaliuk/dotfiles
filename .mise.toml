@@ -1,0 +1,14 @@
+[tools]
+actionlint = "latest"
+shellcheck = "latest"
+
+[tasks.lint]
+description = "actionlint, shellcheck, taplo, mise config check, typos, gitleaks"
+run = [
+  "actionlint",
+  "shellcheck -S error home/.local/bin/lvim home/.config/tmux/status-right.sh home/.config/tmux/lib/*.sh",
+  "taplo lint home/.config/mise/config.toml",
+  '''out=$(mise config explain --file home/.config/mise/config.toml) && ! printf '%s\n' "$out" | grep 'not a key mise reads' ''',
+  "typos",
+  "gitleaks git . -c .gitleaks.toml",
+]

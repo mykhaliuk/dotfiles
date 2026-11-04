@@ -1,0 +1,50 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: jdx/mise-action@8418fedb1110381a0d3ba51a7a415d7c1b884550 # v5.2.2
+        with:
+          install_args: actionlint shellcheck taplo typos gitleaks
+
+      - name: Link checkout to ~/dotfiles
+        run: ln -s "$GITHUB_WORKSPACE" "$HOME/dotfiles"
+
+      - name: Bootstrap dry run
+        run: |
+          test -d /opt/homebrew/Library/Homebrew/vendor/portable-ruby/current/bin
+          PATH="/opt/homebrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH" \
+            mise bootstrap --dry-run --force-dotfiles
+
+      - name: Check the gitconfig template renders
+        run: |
+          mise dot status --json > "$RUNNER_TEMP/dot-status.json"
+          jq -e '.files[] | select(.target == "~/.gitconfig")' "$RUNNER_TEMP/dot-status.json"
+          if jq -e '.files[] | select(.target == "~/.gitconfig" and ((.reason // "") | test("render|template|error"; "i")))' "$RUNNER_TEMP/dot-status.json"; then exit 1; fi
+
+      - name: Lint
+        run: mise run lint
+        env:
+          MISE_TASK_RUN_AUTO_INSTALL: "false"

@@ -1,0 +1,3 @@
+.DS_Store
+*.local.toml
+home/.config/tmux/lib/claude.sh
