@@ -115,6 +115,8 @@ homebrew_metadata = true
 "brew-cask:android-platform-tools" = { version = "latest", os = "macos" }
 "brew-cask:copilot-cli" = { version = "latest", os = "macos" }
 "brew-cask:font-dejavu" = { version = "latest", os = "macos" }
+"brew-cask:font-fira-code-nerd-font" = { version = "latest", os = "macos" }
+"brew-cask:font-fira-mono-nerd-font" = { version = "latest", os = "macos" }
 "brew-cask:font-hack-nerd-font" = { version = "latest", os = "macos" }
 "brew-cask:font-jetbrains-mono-nerd-font" = { version = "latest", os = "macos" }
 "brew-cask:font-juliamono" = { version = "latest", os = "macos" }
@@ -140,9 +142,38 @@ homebrew_metadata = true
 "dnf:diff-so-fancy" = { version = "latest", os = "linux" }
 "dnf:neovim" = { version = "latest", os = "linux" }
 "dnf:perl-Image-ExifTool" = { version = "latest", os = "linux" }
+"dnf:1password" = { version = "latest", os = "linux" }
+"dnf:1password-cli" = { version = "latest", os = "linux" }
+"dnf:keyd" = { version = "latest", os = "linux" }
+"dnf:podman" = { version = "latest", os = "linux" }
+"dnf:podman-docker" = { version = "latest", os = "linux" }
+"dnf:podman-compose" = { version = "latest", os = "linux" }
+"dnf:lm_sensors" = { version = "latest", os = "linux" }
+"dnf:fastfetch" = { version = "latest", os = "linux" }
+"dnf:iw" = { version = "latest", os = "linux" }
+"dnf:nerd-fonts" = { version = "latest", os = "linux" }
 
 [bootstrap.dnf.repos]
 ghostty = { copr = "scottames/ghostty" }
+keyd = { copr = "alternateved/keyd" }
+nerd-fonts = { copr = "che/nerd-fonts" }
+
+# bootstrap.dnf.repos takes COPR projects only.
+[bootstrap.files."/etc/yum.repos.d/1password.repo"]
+content = """
+[1password]
+name=1Password Stable Channel
+baseurl=https://downloads.1password.com/linux/rpm/stable/$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://downloads.1password.com/linux/keys/1password.asc
+"""
+owner = "root"
+group = "root"
+mode = "0644"
+phase = "pre-packages"
+os = "linux"
 
 [bootstrap.repos]
 "~/.config/tmux/plugins/tpm" = { url = "https://github.com/tmux-plugins/tpm.git" }
@@ -170,6 +201,7 @@ ghostty = { copr = "scottames/ghostty" }
 "~/.config/gh-dash" = "~/dotfiles/home/.config/gh-dash"
 "~/.config/LazyVim" = "~/dotfiles/home/.config/LazyVim"
 "~/.config/ghostty/config.ghostty" = "~/dotfiles/home/.config/ghostty/config.ghostty"
+"~/.config/ghostty/config" = { source = "~/dotfiles/home/.config/ghostty/config.linux", variants = [{ os = "linux" }] }
 
 "~/.config/tmux/tmux.conf" = "~/dotfiles/home/.config/tmux/tmux.conf"
 "~/.config/tmux/status-right.sh" = "~/dotfiles/home/.config/tmux/status-right.sh"
@@ -215,6 +247,26 @@ run = [
   "if docker info >/dev/null 2>&1; then docker system prune -af || echo 'docker prune failed, continuing'; fi",
 ]
 
+[tasks.fonts]
+description = "install the Cartograph Nerd Font from its private repository (needs GitHub ssh access)"
+run = """
+repo="$HOME/.local/share/fonts/CphNerdFont"
+if [ -d "$repo/.git" ]; then
+  git -C "$repo" pull --ff-only
+else
+  git clone git@github.com:mykhaliuk/CphNerdFont.git "$repo"
+fi
+{% if os() == "macos" %}cp "$repo"/*.otf "$HOME/Library/Fonts/"{% else %}fc-cache -f "$repo"{% endif %}
+"""
+
+[tasks."macbook-pro-13.3-setup"]
+description = "apply the MacBookPro13,3 fixes on Fedora: kernel, GPU, sleep, Wi-Fi, sound, keyd, herdr unit (idempotent, uses sudo)"
+run = "bash ~/dotfiles/linux/macbook-pro-13.3-setup.sh"
+
+[tasks."macbook-pro-13.3-doctor"]
+description = "check the MacBookPro13,3 fixes on Fedora (read-only)"
+run = "bash ~/dotfiles/linux/macbook-pro-13.3-setup.sh --check"
+
 [doctor.checks.gh]
 description = "gh is authenticated"
 run = "gh auth status"
@@ -238,6 +290,18 @@ run = '[ -x "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" ]'
 hint = "Install the 1Password app. The app holds op-ssh-sign."
 os = ["macos"]
 
+[doctor.checks.commit-signing-linux]
+description = "op-ssh-sign is in place: .gitconfig signs every commit with it"
+run = '[ -x /opt/1Password/op-ssh-sign ]'
+hint = "Run `mise bootstrap packages apply`. The 1password dnf package holds op-ssh-sign."
+os = ["linux"]
+
+[doctor.checks.op-ssh-agent-linux]
+description = "the 1Password SSH agent socket exists"
+run = '[ -S "$HOME/.1password/agent.sock" ]'
+hint = "Open 1Password, then Settings, Developer, and turn on Use the SSH agent."
+os = ["linux"]
+
 [doctor.checks.secrets-dir]
 description = "~/.config/secrets exists: opr reads its env files from there"
 run = '[ -d "$HOME/.config/secrets" ]'
@@ -246,7 +310,7 @@ hint = "Run `mise dot apply`."
 [doctor.checks.op-account]
 description = "op sees the my.1password.com account"
 run = "op account list | grep -q my.1password.com"
-hint = "Turn on the 1Password CLI integration, then sign in."
+hint = "Install the 1Password CLI, turn on its integration in the 1Password app, then sign in. On macOS use the brew-cask entry. On Fedora use the dnf entry."
 timeout = "10s"
 
 [doctor.checks.npm-tokens]

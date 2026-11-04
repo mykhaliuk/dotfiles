@@ -222,8 +222,8 @@
       },
     },
   },
-  // "buffer_font_family": "CartographCFNerdFontComplete Nerd Font",
-  "buffer_font_family": "CartographCFNerdFontComplete Nerd Font",
+  // "buffer_font_family": "CartographCF Nerd Font",
+  "buffer_font_family": "CartographCF Nerd Font",
   "buffer_font_fallbacks": ["FiraCode NF"],
   "buffer_font_weight": 300,
   "buffer_font_features": {
@@ -234,10 +234,10 @@
   "ui_font_size": 15,
   "buffer_font_size": 12.0,
   "terminal": {
-    // "buffer_font_family": "CartographCFNerdFontComplete Nerd Font",
+    // "buffer_font_family": "CartographCF Nerd Font",
     // "font_fallbacks": ["FiraCode NF"],
     // "font_size": 12,
-    "font_family": "CartographCFNerdFontComplete Nerd Font",
+    "font_family": "CartographCF Nerd Font",
     "font_size": 12.0,
     "copy_on_select": true,
     "font_weight": 300,

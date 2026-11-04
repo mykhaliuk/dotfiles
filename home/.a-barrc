@@ -14,7 +14,7 @@
     "barOpacity" : 1,
     "barVerticalPadding" : 4,
     "enableNotifications" : true,
-    "fontName" : "CartographCFNerdFontComplete Nerd Font",
+    "fontName" : "CartographCF Nerd Font",
     "fontSize" : 10,
     "grayscaleAppIcons" : true,
     "launchAtLogin" : false,

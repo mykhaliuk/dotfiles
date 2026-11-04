@@ -7,4 +7,5 @@ extend-ignore-re = [
   'U\+E1BA',
   'LESS_TERMCAP_ue',
   'alias (aslo|tre) ',
+  '(?i)hda',
 ]

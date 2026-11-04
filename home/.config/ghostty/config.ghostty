@@ -2,7 +2,7 @@ background-opacity = 0.84
 background-blur = true
 bell-features = system,attention
 
-font-family = CartographCFNerdFontComplete Nerd Font
+font-family = CartographCF Nerd Font
 font-style = Light
 font-size = 12
 font-feature = liga, clig, dlig, hlig, calt, ss01

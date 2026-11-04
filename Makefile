@@ -18,7 +18,8 @@ mise: brew
 ifeq ($(UNAME),Darwin)
 	brew install mise
 else
-	sudo dnf copr enable -y jdxcode/mise && sudo dnf install -y mise git
+	sudo dnf install -y git
+	command -v mise >/dev/null 2>&1 || { sudo dnf copr enable -y jdxcode/mise && sudo dnf install -y mise; }
 endif
 
 apply:

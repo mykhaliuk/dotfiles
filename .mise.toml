@@ -6,7 +6,7 @@ shellcheck = "latest"
 description = "jactionlint, shellcheck, taplo, mise config check, typos, gitleaks"
 run = [
   "jactionlint",
-  "shellcheck -S error home/.local/bin/lvim home/.config/tmux/status-right.sh home/.config/tmux/lib/*.sh",
+  "shellcheck -S error home/.local/bin/lvim home/.config/tmux/status-right.sh home/.config/tmux/lib/*.sh linux/macbook-pro-13.3-setup.sh",
   "taplo lint home/.config/mise/config.toml",
   '''out=$(mise config explain --file home/.config/mise/config.toml) && ! printf '%s\n' "$out" | grep 'not a key mise reads' ''',
   "typos",

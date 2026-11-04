@@ -1,0 +1,6 @@
+keybind = ctrl+shift+b=text:\x02z
+keybind = ctrl+shift+d=new_split:right
+keybind = chain=equalize_splits
+keybind = ctrl+shift+e=new_split:down
+keybind = chain=equalize_splits
+keybind = ctrl+shift+equal=equalize_splits

@@ -23,13 +23,24 @@ The command installs Homebrew if it is missing, installs `mise`, and runs `make 
 
 ## Fresh Fedora
 
-This path is not verified yet. Nobody has run it on a real Fedora machine.
+This path is not verified yet. Nobody has run it from start to end on a real Fedora machine.
 
 ```sh
+sudo dnf install -y git
 sudo dnf copr enable -y jdxcode/mise
-sudo dnf install -y mise git
+sudo dnf install -y mise
 mise bootstrap --from https://github.com/mykhaliuk/dotfiles.git --from-dir ~/dotfiles --config-dir home/.config/mise --yes
+exec fish
 ```
+
+On a MacBookPro13,3, run these commands next. The first command applies the fixes for this model. The second command only reports their state.
+
+```sh
+mise run macbook-pro-13.3-setup
+mise run macbook-pro-13.3-doctor
+```
+
+To keep one Wi-Fi connection on 5 GHz, add its name: `mise run macbook-pro-13.3-setup -- --wifi-5ghz <connection>`. Do not do this for a connection that has only 2.4 GHz.
 
 ## Daily use
 
@@ -75,10 +86,10 @@ mise dot add ~/.config/karabiner/karabiner.json
 
 - Add the ssh keys.
 - Run `gh auth login`.
-- Turn on the 1Password desktop app and the 1Password CLI integration.
+- Turn on the 1Password desktop app and the 1Password CLI integration. In the app, open Settings, then Developer, and turn on the SSH agent.
 - Import the GPG public key. Old commits need it.
 - Install `rustup`, then run `cargo install cargo-nextest`.
-- Install the `CartographCF` Nerd Font. Without it, the apps use another font.
+- Run `mise run fonts` after you add the ssh keys. It installs the `CartographCF` Nerd Font from a private repository. Without this font, the apps use another font. A fork must use its own font.
 - Run `set -Ux PERSONAL_PROJECTS_DIR <directory>` in fish. `herdr-fork-update` and the `yazi` hop use it.
 - Add `home/.config/tmux/lib/claude.sh` if you want the Claude limits in the `tmux` status. This file is not in the repository.
 - Install the `tmux` plugins. In `tmux`, press `prefix + I`.
@@ -86,6 +97,8 @@ mise dot add ~/.config/karabiner/karabiner.json
 - Install the CLIs that are not in the config.
 - Install the code of the a-bar widgets.
 - Enable RPM Fusion on Fedora, for the full `ffmpeg`.
+- On Fedora, install Obsidian, Slack, Zed and Insomnia from Flatpak.
+- On Fedora, install Chrome from the Google RPM.
 
 ## Secrets
 
