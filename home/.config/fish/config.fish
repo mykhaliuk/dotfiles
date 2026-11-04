@@ -20,5 +20,7 @@ if status is-interactive
     fzf --fish | source
     zoxide init fish | source
     alias cat "bat --paging=never"
-    set -l mole_completion (mole completion fish 2>/dev/null); and echo "$mole_completion" | source
+    if command -q mole
+        mole completion fish 2>/dev/null | source
+    end
 end

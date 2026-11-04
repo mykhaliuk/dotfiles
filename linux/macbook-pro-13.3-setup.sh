@@ -303,7 +303,9 @@ main() {
   if "$reboot_needed"; then
     echo 'Reboot now: the kernel, GPU, sleep, Wi-Fi or sound settings changed.'
   fi
-  [ "$todo_count" -eq 0 ]
+  if [ "$todo_count" -gt 0 ]; then
+    exit 1
+  fi
 }
 
 main "$@"
