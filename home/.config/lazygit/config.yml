@@ -1,0 +1,45 @@
+git:
+  autoForwardBranches: none
+  overrideGpg: true
+  branchLogCmd: git log --no-merges --color=always --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %Cgreen(%ar) %C(bold blue)<%an>%Creset%n%s' {{branchName}} --
+  diffRenderers:
+    # externalDiffCommand: difft --color=always --background dark
+    - colorArg: always
+      # pager: diff-so-fancy
+      #      pager: delta --light --paging=never
+      command: delta --paging=never
+  #      pager: delta --auto-detect --paging=never
+  # list of branches that are considered 'main' branches, used when displaying commits
+  mainBranches:
+    - master
+    - main
+    - dev
+  allBranchesLogCmds:
+    - git log --no-merges --color=always --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all --
+# Config relating to the Lazygit UI
+gui:
+  # If true, increase the height of the focused side window; creating an accordion effect.
+  expandFocusedSidePanel: true
+  # The weight of the expanded side panel, relative to the other panels. 2 means
+  # twice as tall as the other panels. Only relevant if `expandFocusedSidePanel` is true.
+  expandedSidePanelWeight: 2
+  # Nerd fonts version to use.
+  # One of: '2' | '3' | empty string (default)
+  # If empty, do not show icons.
+  nerdFontsVersion: "3"
+# Config relating to things outside of Lazygit like how files are opened, copying to clipboard, etc
+os:
+  # To tell lazygit which editor to use for the e command, the easiest way to do that is to provide an editPreset config, e.g."
+  # Supported presets are vim, nvim, nvim-remote, lvim, emacs, nano, micro, vscode, sublime, bbedit, kakoune, helix, xcode, zed and acme.
+  editPreset: ""
+  edit: 'lvim -- {{filename}}'
+  editAtLine: 'lvim +{{line}} -- {{filename}}'
+  editAtLineAndWait: 'lvim +{{line}} -- {{filename}}'
+  editInTerminal: true
+  openDirInEditor: 'lvim -- {{dir}}' 
+customCommands:
+  - key: "<c-a>"
+    context: "files"
+    description: "Generate commit message with Claude"
+    command: 'git diff --cached | claude -p "Generate a semantic commit message for these changes. Format: type(scope): description. Return ONLY the message, no explanation."'
+    output: terminal

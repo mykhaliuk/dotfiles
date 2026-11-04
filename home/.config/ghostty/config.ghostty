@@ -1,0 +1,46 @@
+background-opacity = 0.84
+background-blur = true
+bell-features = system,attention
+
+font-family = CartographCFNerdFontComplete Nerd Font
+font-style = Light
+font-size = 12
+font-feature = liga, clig, dlig, hlig, calt, ss01
+window-show-tab-bar = never
+shell-integration = fish
+theme = dark:Onenord,light:GitHub Light Default
+copy-on-select = clipboard
+macos-titlebar-style = hidden
+# custom-shader = ~/.config/ghostty/shaders/retro-terminal.glsl
+# custom-shader = ~/.config/ghostty/shaders/glitchy.glsl
+# custom-shader = ~/.config/ghostty/shaders/bloom.glsl
+# custom-shader = ~/.config/ghostty/shaders/cursor_smear.glsl
+# custom-shader = ~/.config/ghostty/shaders/cursor_frozen.glsl
+# custom-shader = ~/.config/ghostty/shaders/cursor_blaze.glsl
+# custom-shader = ~/.config/ghostty/shaders/cursor_blaze_tapered.glsl
+
+
+# only left Option = Meta
+macos-option-as-alt = left
+
+### KEYs bindings ###
+# Zoom the active pane
+keybind = super+b=text:\x02z
+keybind = super+shift+n=text:\x02wN
+keybind = super+d=new_split:right
+keybind = chain=equalize_splits
+keybind = super+shift+d=new_split:down
+keybind = chain=equalize_splits
+keybind = super+shift+equal=equalize_splits
+keybind = opt+h=goto_split:left
+keybind = opt+j=goto_split:bottom
+keybind = opt+k=goto_split:top
+keybind = opt+l=goto_split:right
+
+cursor-style = block
+confirm-close-surface = always
+
+# >>> herdr-radar font block
+font-codepoint-map = U+E1A0-U+E1BA=Herdr Agent Icons Max
+font-codepoint-map = U+E1C0-U+E1C5=Herdr Agent Icons Max
+# <<< herdr-radar font block
