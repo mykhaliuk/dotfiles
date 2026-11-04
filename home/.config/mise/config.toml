@@ -235,7 +235,7 @@ hint = "Point IdentityAgent at the 1Password socket in ~/.ssh/config."
 [doctor.checks.commit-signing]
 description = "op-ssh-sign is in place: .gitconfig signs every commit with it"
 run = '[ -x "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" ]'
-hint = "Launch 1Password once and turn on the SSH agent."
+hint = "Install the 1Password app. The app holds op-ssh-sign."
 os = ["macos"]
 
 [doctor.checks.secrets-dir]

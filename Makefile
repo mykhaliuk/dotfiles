@@ -5,7 +5,8 @@ BREW_PREFIX := /opt/homebrew
 export PATH := $(BREW_PREFIX)/bin:$(PATH)
 PORTABLE_RUBY := $(BREW_PREFIX)/Library/Homebrew/vendor/portable-ruby/current/bin
 
-install: mise apply
+install: mise
+	$(MAKE) apply
 
 brew:
 ifeq ($(UNAME),Darwin)

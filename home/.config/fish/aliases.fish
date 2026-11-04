@@ -1,5 +1,4 @@
 # Transmission
-# alias ts "~/cripts/transmission/start_client.sh"
 # alias tss "~/scripts/transmission/stop_daemon.sh"
 # alias tsd "~/scripts/transmission/start_daemon.sh"
 

@@ -47,7 +47,7 @@ yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Messages$" manage=off
 yabai -m rule --add app="^1Password$" manage=off
 yabai -m rule --add app="^Finder$" title="(Copy|Bin|Info|Connect)" manage=off
-yabai -m rule --add app="^WebStorm$" title="(Welconme to WebStrom)" manage=off
+yabai -m rule --add app="^WebStorm$" title="(Welcome to WebStorm)" manage=off
 yabai -m rule --add app="^(Calculator|Archive Utility|Karabiner-Elements|Music)$" manage=off
 yabai -m rule --add app="^System Information$" manage=off
 yabai -m rule --add app="^Wispr Flow$" manage=off

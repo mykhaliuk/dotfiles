@@ -14,5 +14,5 @@ group = "git"
 
 [opener]
 edit = [
-    { run = "/usr/bin/env NVIM_APPNAME=LazyVim lvim %s", desc = "LazyVim", for = "unix", block = true },
+    { run = "lvim %s", desc = "LazyVim", for = "unix", block = true },
 ]

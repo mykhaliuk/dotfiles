@@ -28,7 +28,7 @@ jobs:
 
       - uses: jdx/mise-action@8418fedb1110381a0d3ba51a7a415d7c1b884550 # v5.2.2
         with:
-          install_args: actionlint shellcheck taplo typos gitleaks
+          install_args: jactionlint shellcheck taplo typos gitleaks
 
       - name: Link checkout to ~/dotfiles
         run: ln -s "$GITHUB_WORKSPACE" "$HOME/dotfiles"

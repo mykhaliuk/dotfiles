@@ -35,6 +35,8 @@ mise bootstrap --from https://github.com/mykhaliuk/dotfiles.git --from-dir ~/dot
 
 Run `make apply` to apply the repository to the machine. It links `~/.config/mise` to the repository and runs `mise bootstrap --yes`.
 
+If a target file exists and is not a link, `make apply` stops after the package step and does not change that file. Move the file away, or run `mise dot add <file>` to keep its content. Then run `make apply` again.
+
 On macOS the command puts the Homebrew portable Ruby first on `PATH`. The tap definitions need Ruby 3 or newer. `/usr/bin/ruby` is older. Every direct `mise bootstrap` command on macOS needs the same path:
 
 ```sh
@@ -87,7 +89,7 @@ mise dot add ~/.config/karabiner/karabiner.json
 
 ## Secrets
 
-The repository holds no secret values. The env files in `home/.config/secrets` hold references. Use `opr` to run a command with these secrets.
+The repository holds no secret values. The env files in `home/.config/secrets` hold references. Use `opr` to run a command with these secrets, for example `opr github gh repo list`.
 
 ## The `herdr` override
 
