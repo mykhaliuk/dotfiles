@@ -48,7 +48,7 @@ Warnings:
 
 ## Machine keys
 
-Some Git settings belong to one machine only. Go to the repository, then register its maintenance in the local file:
+Some Git settings belong to one machine only. Go to the repository that you want to maintain, then register it in the local file:
 
 ```sh
 git maintenance register --config-file ~/.config/git/local

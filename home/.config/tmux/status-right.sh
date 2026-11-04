@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Tmux right status: CPU + Claude Code limits (API) + battery
+# Tmux right status: CPU + Claude limits (optional, local lib/claude.sh) + battery
 
 LIB="$(dirname "$0")/lib"
 
@@ -7,7 +7,7 @@ LIB="$(dirname "$0")/lib"
 source "$LIB/helpers.sh"
 # shellcheck source=lib/cpu.sh
 source "$LIB/cpu.sh"
-# shellcheck source=lib/claude.sh
+# shellcheck source=/dev/null
 [[ -f "$LIB/claude.sh" ]] && source "$LIB/claude.sh"
 # shellcheck source=lib/battery.sh
 source "$LIB/battery.sh"

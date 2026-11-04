@@ -2,11 +2,6 @@ function herdr-fork-update --description 'Merge upstream herdr into the fork mas
     argparse h/help skip-tests rollback -- $argv
     or return 2
 
-    if not set -q PERSONAL_PROJECTS_DIR
-        echo "herdr-fork-update: set PERSONAL_PROJECTS_DIR first" >&2
-        return 2
-    end
-    set -l repo $PERSONAL_PROJECTS_DIR/herdr
     set -l bin ~/.local/bin/herdr
     set -l prev ~/.local/bin/herdr.prev
     set -l zig zig@0.16.0
@@ -34,6 +29,12 @@ function herdr-fork-update --description 'Merge upstream herdr into the fork mas
         and $bin server live-handoff --import-exe $bin
         return
     end
+
+    if test -z "$PERSONAL_PROJECTS_DIR"
+        echo "herdr-fork-update: set PERSONAL_PROJECTS_DIR first" >&2
+        return 2
+    end
+    set -l repo $PERSONAL_PROJECTS_DIR/herdr
 
     if not git -C $repo diff --quiet; or not git -C $repo diff --cached --quiet
         echo "herdr-fork-update: $repo has uncommitted changes" >&2
