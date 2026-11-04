@@ -118,6 +118,17 @@ find_wifi_interface() {
   done
 }
 
+# NetworkManager can randomize the current address: ip shows the real one as permaddr.
+find_permanent_mac() {
+  local permanent
+  permanent="$(ip link show "$1" | sed -n 's/.*permaddr \([0-9a-f:]*\).*/\1/p')"
+  if [ -n "$permanent" ]; then
+    echo "$permanent"
+  else
+    cat "/sys/class/net/$1/address"
+  fi
+}
+
 # Do not add a generic clm_blob: it halts the chip on Apple boards.
 install_nvram() {
   local mac=$1 download
@@ -203,7 +214,7 @@ check_wifi() {
     todo_count=$((todo_count + 1))
     return
   fi
-  check_wifi_files "$(cat "/sys/class/net/$interface/address")"
+  check_wifi_files "$(find_permanent_mac "$interface")"
   check_wifi_connection
   check_wifi_band
 }
