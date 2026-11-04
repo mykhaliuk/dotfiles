@@ -1,0 +1,255 @@
+[settings]
+idiomatic_version_file_enable_tools = ["node", "python", "ruby"]
+github.credential_command = '[ -n "$MISE_GH_TOKEN_LOOKUP" ] || MISE_GH_TOKEN_LOOKUP=1 gh auth token'
+minimum_release_age = "24h"
+minimum_release_age_excludes = ["claude-code"]
+aqua.baked_registry = false
+dotfiles.root = "~/dotfiles/home"
+dotfiles.default_mode = "symlink"
+experimental = true
+
+[hooks]
+postinstall = "misecompsync --shell fish --new-only"
+
+[tools]
+node = "latest"
+python = "latest"
+go = "latest"
+bun = "latest"
+deno = "latest"
+uv = "latest"
+pnpm = "latest"
+"npm:corepack" = "latest"
+
+"pipx:graphifyy" = "latest"
+"pipx:mltype" = "latest"
+"pipx:watchdog" = "latest"
+"pipx:platformio" = "latest"
+
+"npm:@aikidosec/safe-chain" = "latest"
+"npm:@fission-ai/openspec" = "latest"
+"npm:@usebruno/cli" = "latest"
+"npm:metaskills" = "latest"
+"npm:vercel" = "latest"
+"npm:prettier" = "latest"
+
+act = "latest"
+aws-cli = { version = "latest", symlink_bins = "true" }
+bat = "latest"
+delta = "latest"
+difftastic = "latest"
+fd = "latest"
+fzf = "latest"
+gh = "latest"
+gitleaks = "latest"
+glab = "latest"
+glow = "latest"
+herdr = "latest"
+hub = "latest"
+jless = "latest"
+jq = "latest"
+lazydocker = "latest"
+lazygit = "latest"
+mole = "latest"
+resvg = "latest"
+ripgrep = "latest"
+sentry-cli = "latest"
+shellcheck = "latest"
+starship = "latest"
+taplo = "latest"
+terraform = "latest"
+typos = "latest"
+yazi = "latest"
+zoxide = "latest"
+claude-code = { version = "latest", auto_update = true }
+"github:alltuner/mise-completions-sync" = "latest"
+
+bats = "latest"
+zig = "latest"
+zls = "latest"
+"github:ldomaradzki/xcsift" = { version = "latest", os = ["macos"] }
+"npm:create-dmg" = { version = "latest", os = ["macos"] }
+"spm:swiftlang/swift-format" = { version = "latest", os = ["macos"] }
+swiftlint = { version = "latest", os = ["macos"] }
+tuist = { version = "latest", os = ["macos"] }
+xcbeautify = { version = "latest", os = ["macos"] }
+xcodes = { version = "latest", os = ["macos"] }
+
+[bootstrap.hooks.post-tools]
+# Hooks run without shims on PATH: a bare misecompsync exits 127 and stops a fresh bootstrap.
+run = "mise exec -- misecompsync --shell fish"
+
+[bootstrap.brew]
+adopt = true
+homebrew_metadata = true
+
+[bootstrap.brew.taps]
+"asmvik/formulae" = "https://github.com/asmvik/homebrew-formulae"
+"jean-tinland/a-bar" = "https://github.com/Jean-Tinland/homebrew-a-bar"
+
+# Keep os = "macos": brew: and font casks also install on Linux.
+[bootstrap.packages]
+"brew:asmvik/formulae/skhd" = { version = "latest", os = "macos" }
+"brew:asmvik/formulae/yabai" = { version = "latest", os = "macos" }
+"brew:diff-so-fancy" = { version = "latest", os = "macos" }
+"brew:exiftool" = { version = "latest", os = "macos" }
+"brew:ffmpeg-full" = { version = "latest", os = "macos" }
+"brew:fish" = { version = "latest", os = "macos" }
+"brew:fontforge" = { version = "latest", os = "macos" }
+"brew:git-lfs" = { version = "latest", os = "macos" }
+"brew:gnupg" = { version = "latest", os = "macos" }
+"brew:imagemagick-full" = { version = "latest", os = "macos" }
+"brew:mise" = { version = "latest", os = "macos" }
+"brew:neovim" = { version = "latest", os = "macos" }
+"brew:postgresql@18" = { version = "latest", os = "macos" }
+"brew:qpdf" = { version = "latest", os = "macos" }
+"brew:sevenzip" = { version = "latest", os = "macos" }
+"brew:tmux" = { version = "latest", os = "macos" }
+"brew:watchman" = { version = "latest", os = "macos" }
+"brew:wget" = { version = "latest", os = "macos" }
+"brew:zvec-grep" = { version = "latest", os = "macos" }
+
+"brew-cask:1password" = { version = "latest", os = "macos" }
+"brew-cask:1password-cli" = { version = "latest", os = "macos" }
+"brew-cask:jean-tinland/a-bar/a-bar" = { version = "latest", os = "macos" }
+"brew-cask:android-platform-tools" = { version = "latest", os = "macos" }
+"brew-cask:copilot-cli" = { version = "latest", os = "macos" }
+"brew-cask:font-dejavu" = { version = "latest", os = "macos" }
+"brew-cask:font-hack-nerd-font" = { version = "latest", os = "macos" }
+"brew-cask:font-jetbrains-mono-nerd-font" = { version = "latest", os = "macos" }
+"brew-cask:font-juliamono" = { version = "latest", os = "macos" }
+"brew-cask:ghostty" = { version = "latest", os = "macos" }
+"brew-cask:ijhttp" = { version = "latest", os = "macos" }
+"brew-cask:inso" = { version = "latest", os = "macos" }
+"brew-cask:keycastr" = { version = "latest", os = "macos" }
+
+"dnf:fish" = { version = "latest", os = "linux" }
+"dnf:tmux" = { version = "latest", os = "linux" }
+"dnf:git-lfs" = { version = "latest", os = "linux" }
+"dnf:ffmpeg-free" = { version = "latest", os = "linux" }
+"dnf:ImageMagick" = { version = "latest", os = "linux" }
+"dnf:postgresql" = { version = "latest", os = "linux" }
+"dnf:wget2-wget" = { version = "latest", os = "linux" }
+"dnf:7zip" = { version = "latest", os = "linux" }
+"dnf:qpdf" = { version = "latest", os = "linux" }
+"dnf:gnupg2" = { version = "latest", os = "linux" }
+"dnf:@development-tools" = { version = "latest", os = "linux" }
+"dnf:ghostty" = { version = "latest", os = "linux" }
+"dnf:jetbrains-mono-fonts" = { version = "latest", os = "linux" }
+"dnf:dejavu-fonts-all" = { version = "latest", os = "linux" }
+"dnf:diff-so-fancy" = { version = "latest", os = "linux" }
+"dnf:neovim" = { version = "latest", os = "linux" }
+"dnf:perl-Image-ExifTool" = { version = "latest", os = "linux" }
+
+[bootstrap.dnf.repos]
+ghostty = { copr = "scottames/ghostty" }
+
+[bootstrap.repos]
+"~/.config/tmux/plugins/tpm" = { url = "https://github.com/tmux-plugins/tpm.git" }
+
+# No ~/.config/mise entry: --config-dir links that directory, and an entry makes that command refuse.
+[dotfiles]
+"~/.gitconfig" = { source = "~/dotfiles/home/.gitconfig", mode = "template" }
+"~/.ideavimrc" = "~/dotfiles/home/.ideavimrc"
+"~/.local/bin/lvim" = "~/dotfiles/home/.local/bin/lvim"
+"~/.config/git/ignore" = "~/dotfiles/home/.config/git/ignore"
+"~/.config/git/allowed_signers" = "~/dotfiles/home/.config/git/allowed_signers"
+
+"~/.config/fish/config.fish" = "~/dotfiles/home/.config/fish/config.fish"
+"~/.config/fish/cleanpath.fish" = "~/dotfiles/home/.config/fish/cleanpath.fish"
+"~/.config/fish/envvars.fish" = "~/dotfiles/home/.config/fish/envvars.fish"
+"~/.config/fish/aliases.fish" = "~/dotfiles/home/.config/fish/aliases.fish"
+"~/.config/fish/conf.d" = { source = "~/dotfiles/home/.config/fish/conf.d", mode = "symlink-each" }
+"~/.config/fish/functions" = "~/dotfiles/home/.config/fish/functions"
+
+"~/.config/secrets/github.env" = "~/dotfiles/home/.config/secrets/github.env"
+"~/.config/secrets/sentry.env" = "~/dotfiles/home/.config/secrets/sentry.env"
+
+"~/.config/starship.toml" = "~/dotfiles/home/.config/starship.toml"
+"~/.config/lazygit/config.yml" = "~/dotfiles/home/.config/lazygit/config.yml"
+"~/.config/gh-dash" = "~/dotfiles/home/.config/gh-dash"
+"~/.config/LazyVim" = "~/dotfiles/home/.config/LazyVim"
+"~/.config/ghostty/config.ghostty" = "~/dotfiles/home/.config/ghostty/config.ghostty"
+
+"~/.config/tmux/tmux.conf" = "~/dotfiles/home/.config/tmux/tmux.conf"
+"~/.config/tmux/status-right.sh" = "~/dotfiles/home/.config/tmux/status-right.sh"
+"~/.config/tmux/lib" = "~/dotfiles/home/.config/tmux/lib"
+
+"~/.config/yazi/yazi.toml" = "~/dotfiles/home/.config/yazi/yazi.toml"
+"~/.config/yazi/keymap.toml" = "~/dotfiles/home/.config/yazi/keymap.toml"
+"~/.config/yazi/package.toml" = "~/dotfiles/home/.config/yazi/package.toml"
+"~/.config/yazi/init.lua" = "~/dotfiles/home/.config/yazi/init.lua"
+
+"~/.config/zed/settings.json" = "~/dotfiles/home/.config/zed/settings.json"
+"~/.config/zed/keymap.json" = "~/dotfiles/home/.config/zed/keymap.json"
+"~/.config/zed/tasks.json" = "~/dotfiles/home/.config/zed/tasks.json"
+"~/.config/zed/snippets" = "~/dotfiles/home/.config/zed/snippets"
+
+"~/.config/skhd/skhdrc" = { source = "~/dotfiles/home/.config/skhd/skhdrc", variants = [{ os = "macos" }] }
+"~/.config/yabai/yabairc" = { source = "~/dotfiles/home/.config/yabai/yabairc", variants = [{ os = "macos" }] }
+
+# Copy mode: these apps replace a link on save. `mise dot add` copies an edit back.
+"~/.a-barrc" = { mode = "copy", create_if_missing = true, variants = [{ os = "macos" }] }
+"~/.config/karabiner/karabiner.json" = { mode = "copy", create_if_missing = true, variants = [{ os = "macos" }] }
+
+[bootstrap.user]
+login_shell = "fish"
+
+[tasks.upgrade]
+description = "update the mise tools and the system packages"
+run = [
+  "mise upgrade --global",
+  '{% if os() == "macos" %}brew update && brew upgrade -y{% else %}sudo dnf upgrade -y --refresh{% endif %}',
+  # On macOS, tap definitions need Ruby 3 or newer, and /usr/bin/ruby is older.
+  '{% if os() == "macos" %}PATH="/opt/homebrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH" {% endif %}mise bootstrap packages upgrade --yes',
+]
+
+[tasks.clean]
+description = "prune system packages, unused mise versions, package caches and docker"
+run = [
+  '{% if os() == "macos" %}brew cleanup --prune=all -s{% else %}sudo dnf autoremove -y{% endif %} || echo "package cleanup failed, continuing"',
+  "mise prune --yes || echo 'mise prune failed, continuing'",
+  "uv cache clean || echo 'uv cache clean failed, continuing'",
+  "npm cache clean --force || echo 'npm cache clean failed, continuing'",
+  "pnpm store prune || echo 'pnpm store prune failed, continuing'",
+  "if docker info >/dev/null 2>&1; then docker system prune -af || echo 'docker prune failed, continuing'; fi",
+]
+
+[doctor.checks.gh]
+description = "gh is authenticated"
+run = "gh auth status"
+hint = "Run `gh auth login`."
+timeout = "10s"
+
+[doctor.checks.glab]
+description = "glab is authenticated"
+run = "glab auth status"
+hint = "Run `glab auth login`."
+timeout = "10s"
+
+[doctor.checks.ssh-agent]
+description = "ssh keys are served by the 1Password agent"
+run = 'grep -qiE "^[[:space:]]*IdentityAgent[[:space:]]" "$HOME/.ssh/config"'
+hint = "Point IdentityAgent at the 1Password socket in ~/.ssh/config."
+
+[doctor.checks.commit-signing]
+description = "op-ssh-sign is in place: .gitconfig signs every commit with it"
+run = '[ -x "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" ]'
+hint = "Launch 1Password once and turn on the SSH agent."
+os = ["macos"]
+
+[doctor.checks.secrets-dir]
+description = "~/.config/secrets exists: opr reads its env files from there"
+run = '[ -d "$HOME/.config/secrets" ]'
+hint = "Run `mise dot apply`."
+
+[doctor.checks.op-account]
+description = "op sees the my.1password.com account"
+run = "op account list | grep -q my.1password.com"
+hint = "Turn on the 1Password CLI integration, then sign in."
+timeout = "10s"
+
+[doctor.checks.npm-tokens]
+description = "~/.npmrc holds no _authToken"
+run = '! grep -qs _authToken "$HOME/.npmrc"'
+hint = "Remove the _authToken lines from ~/.npmrc and use `opr` for tokens."
