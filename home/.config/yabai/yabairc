@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# The scripting addition injects into Dock.app and needs SIP partially
+# disabled (csrutil enable --without fs --without debug --without nvram).
+# Without it: no window animations, no space --create / --destroy.
+# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# sudo yabai --load-sa
+
+# global settings
+# yabai -m config focus_follows_mouse autofocus
+# yabai -m config mouse_follows_focus on
+
+# NOTE: window_animation_duration is ignored while SIP is enabled --
+# yabai keeps reporting 0.0 for it. Kept for when/if SIP is relaxed.
+yabai -m config \
+  active_window_opacity 1.0 \
+  auto_balance off \
+  bottom_padding 4 \
+  display_arrangement_order default \
+  external_bar all:34:0 \
+  insert_feedback_color 0xffd75f5f \
+  layout bsp \
+  left_padding 4 \
+  menubar_opacity 1.0 \
+  mouse_action1 move \
+  mouse_action2 resize \
+  mouse_drop_action swap \
+  mouse_modifier fn \
+  normal_window_opacity 0.95 \
+  right_padding 4 \
+  skip_window_focus_animation off \
+  split_ratio 0.50 \
+  split_type auto \
+  top_padding 4 \
+  window_animation_duration 0.1 \
+  window_animation_easing ease_out_circ \
+  window_gap 06 \
+  window_insertion_point focused \
+  window_opacity on \
+  window_opacity_duration 0.0 \
+  window_origin_display default \
+  window_placement second_child \
+  window_shadow off \
+  window_zoom_persist on
+
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Messages$" manage=off
+yabai -m rule --add app="^1Password$" manage=off
+yabai -m rule --add app="^Finder$" title="(Copy|Bin|Info|Connect)" manage=off
+yabai -m rule --add app="^WebStorm$" title="(Welconme to WebStrom)" manage=off
+yabai -m rule --add app="^(Calculator|Archive Utility|Karabiner-Elements|Music)$" manage=off
+yabai -m rule --add app="^System Information$" manage=off
+yabai -m rule --add app="^Wispr Flow$" manage=off
+
+# The following apps reuse the same window id across close/reopen (and the
+# Music MiniPlayer switch), so rules -- which only fire on window_created --
+# stop applying and yabai re-manages the window. Re-apply them at runtime.
+for event in window_focused window_resized application_visible window_title_changed; do
+  yabai -m signal --add event="$event" app="^(Messages|Music)$" \
+    action="yabai -m rule --apply" \
+    label="reapply_$event"
+done
+
+# Rules only fire on window_created, so windows that already existed when
+# yabai (re)started stay managed until the first signal above.
+yabai -m rule --apply
+
+echo "yabai configuration loaded.."
