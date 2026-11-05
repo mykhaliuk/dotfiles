@@ -34,6 +34,9 @@ jobs:
         run: ln -s "$GITHUB_WORKSPACE" "$HOME/dotfiles"
 
       - name: Bootstrap dry run
+        env:
+          # Without a token mise shares the 60 requests per hour limit of the runner IP.
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           test -d /opt/homebrew/Library/Homebrew/vendor/portable-ruby/current/bin
           PATH="/opt/homebrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH" \
