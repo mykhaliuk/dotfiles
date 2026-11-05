@@ -30,7 +30,13 @@ pnpm = "latest"
 "npm:@fission-ai/openspec" = "latest"
 "npm:@usebruno/cli" = "latest"
 "npm:metaskills" = "latest"
-"npm:vercel" = "latest"
+# Since 2026-08-03 Vercel publishes the CLI and every @vercel/* dependency from a
+# private repo: npm trusted publishing without provenance, so aube's no-downgrade
+# check fails on each new version. Official statement: github.com/vercel/vercel/issues/17408.
+# Checked on 2026-11-04: all 34 @vercel/* deps of 65.11.0 cut over the same day.
+# Verify a release: compare `npm view vercel@<v> dist.integrity` with
+# https://vercel.com/docs/cli/release-notes/npm/<v>/integrity.
+"npm:vercel" = { version = "latest", trust_policy_excludes = ["vercel@>=58.5.1", "@vercel/*"] }
 "npm:prettier" = "latest"
 
 act = "latest"
