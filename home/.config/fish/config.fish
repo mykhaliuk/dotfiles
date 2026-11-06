@@ -12,8 +12,11 @@ if status is-interactive
     set -l lb (contains -i -- $HOME/.local/bin $PATH); and set -e PATH[$lb]
     $mise_bin activate fish | source
     set -gx PATH $HOME/.local/bin $PATH
-    # the GitHub MCP plugin expands this from the environment of Claude Code
-    set -l gh_token (gh auth token 2>/dev/null); and set -gx GITHUB_PERSONAL_ACCESS_TOKEN $gh_token
+    # the GitHub MCP plugin and ~/.npmrc expand these from the environment
+    if set -l gh_token (gh auth token 2>/dev/null)
+        set -gx GITHUB_PERSONAL_ACCESS_TOKEN $gh_token
+        set -gx GITHUB_TOKEN $gh_token
+    end
     set -g fish_complete_path $fish_complete_path[1..-2] $HOME/.local/share/mise-completions/fish $fish_complete_path[-1]
     starship init fish | source
     fish_vi_key_bindings

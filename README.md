@@ -104,6 +104,8 @@ mise dot add ~/.config/karabiner/karabiner.json
 
 The repository holds no secret values. The env files in `home/.config/secrets` hold references. Use `opr` to run a command with these secrets, for example `opr github gh repo list`.
 
+`~/.npmrc` reads `GITHUB_TOKEN` for GitHub Packages. Interactive fish sets this variable from `gh auth token`. The token needs the `read:packages` scope.
+
 ## The `herdr` override
 
 `herdr` is a `mise` tool. A fork build of `herdr` installs to `~/.local/bin/herdr`. That directory comes before the `mise` shims on `PATH`, so the fork wins. This is intended.

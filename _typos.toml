@@ -8,4 +8,5 @@ extend-ignore-re = [
   'LESS_TERMCAP_ue',
   'alias (aslo|tre) ',
   '(?i)hda',
+  '@fulll\b',
 ]

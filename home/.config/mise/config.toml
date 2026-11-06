@@ -229,6 +229,8 @@ os = "linux"
 # Copy mode: these apps replace a link on save. `mise dot add` copies an edit back.
 "~/.a-barrc" = { mode = "copy", create_if_missing = true, variants = [{ os = "macos" }] }
 "~/.config/karabiner/karabiner.json" = { mode = "copy", create_if_missing = true, variants = [{ os = "macos" }] }
+# copy, not a link: `npm login` writes its token through a link into this repository
+"~/.npmrc" = { mode = "copy" }
 
 [bootstrap.user]
 login_shell = "fish"
@@ -320,6 +322,6 @@ hint = "Install the 1Password CLI, turn on its integration in the 1Password app,
 timeout = "10s"
 
 [doctor.checks.npm-tokens]
-description = "~/.npmrc holds no _authToken"
-run = '! grep -qs _authToken "$HOME/.npmrc"'
-hint = "Remove the _authToken lines from ~/.npmrc and use `opr` for tokens."
+description = "~/.npmrc holds no literal _authToken"
+run = '! grep -Eqs "_authToken=[^$]" "$HOME/.npmrc"'
+hint = "Replace the token value in ~/.npmrc with an env reference such as ${GITHUB_TOKEN}, and use `opr` for other tokens."

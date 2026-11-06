@@ -5,7 +5,6 @@ function wt-deps --description 'Link node_modules to the main checkout when deps
         echo 'wt-deps: already in the main checkout' >&2
         return 1
     end
-    set -q GITHUB_TOKEN; or set -lx GITHUB_TOKEN (gh auth token)
 
     for src in $main/node_modules $main/*/node_modules
         test -d $src; and not test -L $src; or continue
