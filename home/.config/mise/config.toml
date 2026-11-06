@@ -267,6 +267,22 @@ fi
 {% if os() == "macos" %}cp "$repo"/*.otf "$HOME/Library/Fonts/"{% else %}fc-cache -f "$repo"{% endif %}
 """
 
+[tasks.agents]
+description = "clone or update the private the-agents repository and link the agent config into ~ (needs GitHub ssh access)"
+run = """
+repo="$HOME/the-agents"
+if [ -d "$repo/.git" ]; then
+  git -C "$repo" pull --ff-only
+else
+  git clone git@github.com:mykhaliuk/the-agents.git "$repo"
+fi
+"$repo/bin/link"
+"""
+
+[tasks."agents:sync"]
+description = "commit and push the local agent config changes, then pull the changes of the other hosts"
+run = "~/the-agents/bin/sync"
+
 [tasks."macbook-pro-13.3-setup"]
 description = "apply the MacBookPro13,3 fixes on Fedora: kernel, GPU, sleep, Wi-Fi, sound, keyd, herdr unit (idempotent, uses sudo)"
 run = "bash ~/dotfiles/linux/macbook-pro-13.3-setup.sh"
