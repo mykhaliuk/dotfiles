@@ -27,6 +27,7 @@ pnpm = "latest"
 "pipx:platformio" = "latest"
 
 "npm:@aikidosec/safe-chain" = "latest"
+"npm:@cucumber/language-server" = "latest"
 "npm:@fission-ai/openspec" = "latest"
 "npm:@usebruno/cli" = "latest"
 "npm:metaskills" = "latest"
