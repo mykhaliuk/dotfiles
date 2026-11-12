@@ -21,7 +21,6 @@ uv = "latest"
 pnpm = "latest"
 "npm:corepack" = "latest"
 
-"pipx:graphifyy" = "latest"
 "pipx:mltype" = "latest"
 "pipx:watchdog" = "latest"
 "pipx:platformio" = "latest"
