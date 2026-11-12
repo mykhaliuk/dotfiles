@@ -5,10 +5,7 @@ git:
   diffRenderers:
     # externalDiffCommand: difft --color=always --background dark
     - colorArg: always
-      # pager: diff-so-fancy
-      #      pager: delta --light --paging=never
-      command: delta --paging=never
-  #      pager: delta --auto-detect --paging=never
+      command: mise x delta -- delta --paging=never
   # list of branches that are considered 'main' branches, used when displaying commits
   mainBranches:
     - master
