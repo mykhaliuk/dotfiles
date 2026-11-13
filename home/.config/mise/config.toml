@@ -313,6 +313,7 @@ for id in $(printf '%s\\n' "$installed" | cut -d' ' -f1); do
   case " $wanted " in *" $id "*) ;; *) echo "herdr:sync: $id is installed but not in plugins.list (run herdr:dump to keep it, or uninstall it)" ;; esac
 done
 herdr server reload-config >/dev/null || echo "herdr:sync: no running herdr server, nothing to reload"
+herdr plugin action invoke hhdebb.herdr-radar.state-start >/dev/null 2>&1 || true
 """
 
 [tasks."herdr:dump"]
