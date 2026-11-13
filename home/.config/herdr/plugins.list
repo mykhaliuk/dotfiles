@@ -1,0 +1,7 @@
+# plugin_id source ref state
+furkankly.zoetrope furkankly/zoetrope/herdr-plugin b1f31dd26bd4e9e513885e39edb78d0850a5d1fe disabled
+herdr-omni mmjang/herdr-omni v0.17.2 enabled
+herdr.auto-title kryptamine/herdr-auto-title 67c03f3a1ed0ce6717f815b3609e3e32b496c39b enabled
+hhdebb.herdr-radar hhdebb/herdr-radar 8619655557a4d2c2852e819d424e4af4ed83e4b1 enabled
+persiyanov.reviewr persiyanov/herdr-reviewr aede1794248fbfc3fc8f45ff77977a718aadbef0 enabled
+ray.plugin-manager speardragon/herdr-plugin-manager 8ed222ab7efe735b3ef5e037e7ee81d6d7650e4e enabled

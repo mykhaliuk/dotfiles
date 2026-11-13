@@ -10,3 +10,6 @@ extend-ignore-re = [
   '(?i)hda',
   '@fulll\b',
 ]
+
+[default.extend-words]
+reviewr = "reviewr"

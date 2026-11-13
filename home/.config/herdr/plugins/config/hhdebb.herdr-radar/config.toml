@@ -1,0 +1,9 @@
+variant = "auto"
+show_tab = true
+row_label = "title"
+done_hold = "until_seen"
+group_indent = 2
+group_gap = true
+split_corner = true
+multi_machine = true
+activity_stale_minutes = 60

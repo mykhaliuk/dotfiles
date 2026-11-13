@@ -1,0 +1,1 @@
+editor = "/usr/bin/env NVIM_APPNAME=LazyVim /opt/homebrew/bin/nvim +{line} {file}"

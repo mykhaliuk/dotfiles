@@ -213,6 +213,10 @@ os = "linux"
 "~/.config/tmux/status-right.sh" = "~/dotfiles/home/.config/tmux/status-right.sh"
 "~/.config/tmux/lib" = "~/dotfiles/home/.config/tmux/lib"
 
+"~/.config/herdr/config.toml" = "~/dotfiles/home/.config/herdr/config.toml"
+"~/.config/herdr/plugins/config/hhdebb.herdr-radar/config.toml" = "~/dotfiles/home/.config/herdr/plugins/config/hhdebb.herdr-radar/config.toml"
+"~/.config/herdr/plugins/config/persiyanov.reviewr/config.toml" = "~/dotfiles/home/.config/herdr/plugins/config/persiyanov.reviewr/config.toml"
+
 "~/.config/yazi/yazi.toml" = "~/dotfiles/home/.config/yazi/yazi.toml"
 "~/.config/yazi/keymap.toml" = "~/dotfiles/home/.config/yazi/keymap.toml"
 "~/.config/yazi/package.toml" = "~/dotfiles/home/.config/yazi/package.toml"
@@ -282,6 +286,45 @@ fi
 [tasks."agents:sync"]
 description = "commit and push the local agent config changes, then pull the changes of the other hosts"
 run = "~/the-agents/bin/sync"
+
+[tasks."herdr:sync"]
+description = "install the herdr plugins of home/.config/herdr/plugins.list at their pinned refs and set their enabled state"
+run = """
+list="$HOME/dotfiles/home/.config/herdr/plugins.list"
+installed=$(herdr plugin list --json | jq -r '.result.plugins[] | select(.source.kind == "github")
+  | "\\(.plugin_id) \\(.source.owner)/\\(.source.repo)\\(if .source.subdir then "/" + .source.subdir else "" end) \\(.source.requested_ref // .source.resolved_commit)"')
+wanted=""
+while read -r id source ref state <&3; do
+  case "$id" in ''|'#'*) continue ;; esac
+  wanted="$wanted $id"
+  if ! printf '%s\\n' "$installed" | grep -qxF "$id $source $ref"; then
+    herdr plugin install "$source" --ref "$ref" --yes
+  fi
+  case "$state" in
+    enabled) herdr plugin enable "$id" >/dev/null ;;
+    disabled) herdr plugin disable "$id" >/dev/null ;;
+    *) echo "herdr:sync: $id has state '$state', expected enabled or disabled" >&2; exit 1 ;;
+  esac
+done 3< "$list"
+for id in $(printf '%s\\n' "$installed" | cut -d' ' -f1); do
+  case " $wanted " in *" $id "*) ;; *) echo "herdr:sync: $id is installed but not in plugins.list (run herdr:dump to keep it, or uninstall it)" ;; esac
+done
+herdr server reload-config >/dev/null || echo "herdr:sync: no running herdr server, nothing to reload"
+"""
+
+[tasks."herdr:dump"]
+description = "write the installed herdr GitHub plugins, their refs and enabled state to home/.config/herdr/plugins.list"
+run = """
+{
+  printf '# plugin_id source ref state\\n'
+  herdr plugin list --json | jq -r '.result.plugins[] | select(.source.kind == "github")
+    | [.plugin_id,
+       "\\(.source.owner)/\\(.source.repo)\\(if .source.subdir then "/" + .source.subdir else "" end)",
+       (.source.requested_ref // .source.resolved_commit),
+       (if .enabled then "enabled" else "disabled" end)]
+    | join(" ")'
+} > "$HOME/dotfiles/home/.config/herdr/plugins.list"
+"""
 
 [tasks."macbook-pro-13.3-setup"]
 description = "apply the MacBookPro13,3 fixes on Fedora: kernel, GPU, sleep, Wi-Fi, sound, keyd, herdr unit (idempotent, uses sudo)"
