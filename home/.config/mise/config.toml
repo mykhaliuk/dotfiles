@@ -292,11 +292,14 @@ description = "install the herdr plugins of home/.config/herdr/plugins.list at t
 run = """
 list="$HOME/dotfiles/home/.config/herdr/plugins.list"
 installed=$(herdr plugin list --json | jq -r '.result.plugins[] | select(.source.kind == "github")
-  | "\\(.plugin_id) \\(.source.owner)/\\(.source.repo)\\(if .source.subdir then "/" + .source.subdir else "" end) \\(.source.requested_ref // .source.resolved_commit)"')
+  | "\\(.plugin_id) \\(.source.owner)/\\(.source.repo)\\(if .source.subdir then "/" + .source.subdir else "" end) \\(.source.resolved_commit)"')
 wanted=""
 while read -r id source ref state <&3; do
   case "$id" in ''|'#'*) continue ;; esac
   wanted="$wanted $id"
+  if ! printf '%s' "$ref" | grep -qxE '[0-9a-f]{40}'; then
+    echo "herdr:sync: $id ref '$ref' is not a full commit sha" >&2; exit 1
+  fi
   if ! printf '%s\\n' "$installed" | grep -qxF "$id $source $ref"; then
     herdr plugin install "$source" --ref "$ref" --yes
   fi
@@ -320,7 +323,7 @@ run = """
   herdr plugin list --json | jq -r '.result.plugins[] | select(.source.kind == "github")
     | [.plugin_id,
        "\\(.source.owner)/\\(.source.repo)\\(if .source.subdir then "/" + .source.subdir else "" end)",
-       (.source.requested_ref // .source.resolved_commit),
+       .source.resolved_commit,
        (if .enabled then "enabled" else "disabled" end)]
     | join(" ")'
 } > "$HOME/dotfiles/home/.config/herdr/plugins.list"
