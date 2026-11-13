@@ -4,7 +4,7 @@ bell-features = system,attention
 
 font-family = CartographCF Nerd Font
 font-style = Light
-font-size = 12
+font-size = 11
 font-feature = liga, clig, dlig, hlig, calt, ss01
 window-show-tab-bar = never
 shell-integration = fish
