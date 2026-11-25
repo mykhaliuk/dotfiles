@@ -24,3 +24,27 @@ Migrated from the herdr TUI config (`~/.config/herdr/config.toml`) on 2026-11-25
 - The installer writes `keys.json` with tmp+rename, which replaces the dotfiles symlink.
   After an install or uninstall, copy `keys.json` back to `~/dotfiles/home/.config/herdr-app/`
   and run `mise dot apply --force`.
+
+## Better Sidebar (2026-11-25)
+
+- Copied `munza/herdr-mods` `better-sidebar/mods/better-sidebar` (v3.10.0, commit bad7512) to `mods/`.
+- In `layouts/main-copy.json`: `spaces` uses `better-sidebar`, `agents` uses it with
+  `{view: "agents"}`, `sidebar-footer` uses it with `{view: "footer"}` at 37px (was 69px,
+  `workspace-chrome` with `{footer: true}`). Restore those references to roll back.
+- Its `keys.json` (`cmd-shift-b` toggle-panel) is not merged: it needs a `panel-toggle` block.
+- Settings go in a `settings` block of the installed `mods/better-sidebar/mod.json`; keep it on update.
+
+## ci-dash (2026-11-25)
+
+- Copied `cybertron288/herdr-mods` `ci-dash/mods/ci-dash` (commit 34e7c33) to `mods/`. No layout change.
+- `cmd-shift-i` in `keys.json` runs `pane.split {direction: "right", mod: "ci-dash"}`.
+- Artifact downloads go to `<repo>/.ci-dash/artifacts`; add `.ci-dash/` to the repo's `.gitignore`.
+
+## filetree (2026-11-25)
+
+- Copied `cybertron288/herdr-mods` `filetree/mods/{filetree,file-icons}` (commit 34e7c33) to `mods/`.
+  `file-icons` must stay: filetree loads its SVGs from `mods/file-icons/icons/`.
+- In `layouts/main-copy.json`: the `files` block of `panel-body` uses `filetree` (was the shipped `files`).
+  Restore `"mod": "files"` to roll back.
+- Settings in `mods/filetree/config.json` (`open`, `activity`, `follow`, `column`); keep it on update.
+- The optional Claude Code hook (`mods/filetree/bridge.ts`, needs bun) is not registered.

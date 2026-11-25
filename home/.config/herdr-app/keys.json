@@ -68,7 +68,14 @@
     "cmd-alt-8": "agent.select:8",
     "cmd-alt-9": "agent.select:9",
     "cmd-shift-g": "mod.open:gitview-sidebar",
-    "cmd-g": "mod.open:gitview-tab"
+    "cmd-g": "mod.open:gitview-tab",
+    "cmd-shift-i": {
+      "command": "pane.split",
+      "args": {
+        "direction": "right",
+        "mod": "ci-dash"
+      }
+    }
   },
   "terminal": {
     "cmd-f": "terminal.search",
