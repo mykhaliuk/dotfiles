@@ -66,7 +66,9 @@
     "cmd-alt-6": "agent.select:6",
     "cmd-alt-7": "agent.select:7",
     "cmd-alt-8": "agent.select:8",
-    "cmd-alt-9": "agent.select:9"
+    "cmd-alt-9": "agent.select:9",
+    "cmd-shift-g": "mod.open:gitview-sidebar",
+    "cmd-g": "mod.open:gitview-tab"
   },
   "terminal": {
     "cmd-f": "terminal.search",

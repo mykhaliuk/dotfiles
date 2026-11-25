@@ -13,3 +13,14 @@ Migrated from the herdr TUI config (`~/.config/herdr/config.toml`) on 2026-11-25
 - Not migrated (TUI-only plugins): zoetrope, plugin-manager, reviewr (`cmd+r`),
   herdr-radar sidebar/tab-bar/theme blocks.
 - keys.json is now hand-edited: new default shortcuts from app upgrades must be added by hand.
+
+## gitview (2026-11-25)
+
+- Installed `ChmaraX/herdr-gitview` v0.6.0 (release bundle, `install.sh --app --version v0.6.0`).
+  It replaces the Changes panel with gitview mods and a `mods/gitview/bin/herdr-gitview` binary.
+- The installer cloned `main` as `layouts/main-copy.json` and switched to it; that is the
+  personal layout now. Upgrade: run the installer again; `--uninstall` restores the stock panel.
+- Keys: `cmd-shift-g` (panel), `cmd-g` (own tab).
+- The installer writes `keys.json` with tmp+rename, which replaces the dotfiles symlink.
+  After an install or uninstall, copy `keys.json` back to `~/dotfiles/home/.config/herdr-app/`
+  and run `mise dot apply --force`.
