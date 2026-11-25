@@ -19,7 +19,7 @@ yabai -m config \
   display_arrangement_order default \
   external_bar all:34:0 \
   insert_feedback_color 0xffd75f5f \
-  layout bsp \
+  layout stack \
   left_padding 4 \
   menubar_opacity 1.0 \
   mouse_action1 move \
@@ -46,6 +46,7 @@ yabai -m config \
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Messages$" manage=off
 yabai -m rule --add app="^1Password$" manage=off
+yabai -m rule --add app="^TablePlus$" manage=off
 yabai -m rule --add app="^Finder$" title="(Copy|Bin|Info|Connect)" manage=off
 yabai -m rule --add app="^WebStorm$" title="(Welcome to WebStorm)" manage=off
 yabai -m rule --add app="^(Calculator|Archive Utility|Karabiner-Elements|Music)$" manage=off
@@ -56,7 +57,7 @@ yabai -m rule --add app="^Wispr Flow$" manage=off
 # Music MiniPlayer switch), so rules -- which only fire on window_created --
 # stop applying and yabai re-manages the window. Re-apply them at runtime.
 for event in window_focused window_resized application_visible window_title_changed; do
-  yabai -m signal --add event="$event" app="^(Messages|Music)$" \
+  yabai -m signal --add event="$event" app="^(Messages|Music|TablePlus)$" \
     action="yabai -m rule --apply" \
     label="reapply_$event"
 done
