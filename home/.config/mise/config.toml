@@ -217,6 +217,12 @@ os = "linux"
 "~/.config/herdr/plugins/config/hhdebb.herdr-radar/config.toml" = "~/dotfiles/home/.config/herdr/plugins/config/hhdebb.herdr-radar/config.toml"
 "~/.config/herdr/plugins/config/persiyanov.reviewr/config.toml" = "~/dotfiles/home/.config/herdr/plugins/config/persiyanov.reviewr/config.toml"
 
+# herdr-app (desktop app) is macOS-only here; keys.json binds cmd-* keys.
+"~/.config/herdr-app/settings.json" = { source = "~/dotfiles/home/.config/herdr-app/settings.json", variants = [{ os = "macos" }] }
+"~/.config/herdr-app/keys.json" = { source = "~/dotfiles/home/.config/herdr-app/keys.json", variants = [{ os = "macos" }] }
+"~/.config/herdr-app/themes/catppuccin.json" = { source = "~/dotfiles/home/.config/herdr-app/themes/catppuccin.json", variants = [{ os = "macos" }] }
+"~/.config/herdr-app/AGENTS.local.md" = { source = "~/dotfiles/home/.config/herdr-app/AGENTS.local.md", variants = [{ os = "macos" }] }
+
 "~/.config/yazi/yazi.toml" = "~/dotfiles/home/.config/yazi/yazi.toml"
 "~/.config/yazi/keymap.toml" = "~/dotfiles/home/.config/yazi/keymap.toml"
 "~/.config/yazi/package.toml" = "~/dotfiles/home/.config/yazi/package.toml"
