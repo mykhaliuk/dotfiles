@@ -227,6 +227,7 @@ os = "linux"
 "~/.config/yazi/keymap.toml" = "~/dotfiles/home/.config/yazi/keymap.toml"
 "~/.config/yazi/package.toml" = "~/dotfiles/home/.config/yazi/package.toml"
 "~/.config/yazi/init.lua" = "~/dotfiles/home/.config/yazi/init.lua"
+"~/.config/yazi/vfs.toml" = "~/dotfiles/home/.config/yazi/vfs.toml"
 
 "~/.config/zed/settings.json" = "~/dotfiles/home/.config/zed/settings.json"
 "~/.config/zed/keymap.json" = "~/dotfiles/home/.config/zed/keymap.json"
