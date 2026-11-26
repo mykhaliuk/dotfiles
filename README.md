@@ -57,7 +57,7 @@ PATH="/opt/homebrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH" mis
 Warnings:
 
 - `mise bootstrap packages prune` lists `icu4c@78`, `mbedtls@3`, `openssl@3` and `whisper-cpp`. Other formulae need them. Read the output of `--dry-run` first. Do not confirm that list.
-- `mise run <task> --dry-run` runs the task for real. `mise` passes the flag to the task. Do not use it on `upgrade` or `clean`.
+- `mise run <task> --dry-run` runs the task for real. `mise` passes the flag to the task. Do not use it on `up` or `clean`.
 
 ## Machine keys
 
